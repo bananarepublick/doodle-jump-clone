@@ -13,12 +13,11 @@ class Player:
     doodle = pygame.image.load("doodle.png")
 
 
-    def __init__(self, surface):
+    def __init__(self, surface, platforms):
         """"Constructor function that takes the surface to be drawn on as an argument"""
         self.SURFACE = surface
-        self.x = self.SURFACE.get_width() / 2
-        self.y = self.SURFACE.get_height() / 2
-
+        self.x = platforms[2].x
+        self.y = platforms[2].y + self.SURFACE.get_rect().height
 
     def show(self):
         """"Draw Player on the screen at x and y"""
@@ -41,6 +40,6 @@ class Player:
         elif dir == "LEFT":
             self.x -= 10
         elif dir == "UP":
-            self.y -= self.gravity
+            self.y -= 20
         self.SURFACE.fill((255,255,255))
-        self.SURFACE.blit(self.doodle, (self.x, self.y))
+        self.show()

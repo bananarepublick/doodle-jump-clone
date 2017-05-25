@@ -16,7 +16,6 @@ pygame.key.set_repeat(30,30)
 fpsClock = pygame.time.Clock()
 FPS = 60
 #creating the player object and passing it the SURFACE object
-p = Player(SURFACE)
 #creating empty platforms array
 platforms = []
 
@@ -26,31 +25,34 @@ for i in range(SURFACE.get_height()):
         #every 120 pixels in y create a new Platform with a random x position
         platforms.append(Platform(random.randint(0, SURFACE.get_width()), i, SURFACE))
 
-while True: #main game loop
+p = Player(SURFACE, platforms)
 
-    p.show()
-    #eventhandling
+while True: # main game loop
+    #p.move("")
+    # eventhandling
     for ev in pygame.event.get():
-        #quit event
+        # quit event
         if ev.type == QUIT:
             pygame.quit()
             sys.exit()
 
-        #keyhandling
+        # keyhandling
         elif ev.type == KEYDOWN and ev.key == K_RIGHT:
             p.move("RIGHT")
         elif ev.type == KEYDOWN and ev.key == K_LEFT:
             p.move("LEFT")
 
-    #draw platforms on the screen
-    for plat in platforms:
-        plat.show()
-    #move the player up if he's touching the platform
+    # move the player up if he's touching the platform
     for pla in platforms:
         if p.isTouching(pla):
-           p.move("UP")
-    #gravity
-    p.move("")
+            p.move("UP")
+    print(p.x, p.y)
+    p.show()
+
+    # draw platforms on the screen
+    for plat in platforms:
+        plat.show()
+
 
     pygame.display.update()
     fpsClock.tick(FPS)
